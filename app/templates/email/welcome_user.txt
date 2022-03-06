@@ -1,0 +1,3 @@
+Hello {{user.username}}
+Welcome to MinuteGo
+Our very intelligent monitoring robot has just seen that you've joined our community. We are happy for this important decision you made, now you can share your great pitches and who knows, you might sponsor some some day.
