@@ -1,4 +1,4 @@
-from flask_login import login_user
+from flask_login import login_required, login_user, logout_user
 from . import auth
 from flask import render_template,redirect,url_for,request,flash
 from ..models import User
@@ -29,3 +29,9 @@ def login():
 
     title = "watchlist login"
     return render_template('auth/login.html',login_form = login_form,title=title)
+
+@auth.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("views.index"))
