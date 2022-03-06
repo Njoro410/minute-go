@@ -1,15 +1,16 @@
 {% extends 'base.html'%}
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}">
+{% endblock %}
 {% block title %} pitches {% endblock %}
-
 {% block content %}
-
-
-<div class="container">
+<div class="container" id="p">
     <div class="row">
         <div class="col-sm-12">
+
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Launch demo modal
+                Add A Pitch
             </button>
 
             <!-- Modal -->
@@ -18,7 +19,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Add A Pitch</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -47,30 +48,31 @@
 
                             </form>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
+
                     </div>
                 </div>
             </div>
 
         </div>
-        <div class="row">
-            <div class="col-sm-12">
-
-                {% for user in users %}
-                <h2>no pitches</h2><br>
-                <h2>no pitches</h2><br>
-                <h2>no pitches</h2><br>
-                <h2>no pitches</h2><br>
-                <h2>{{user.email}}</h2><br>
-                <h2>no pitches</h2>
+    </div>
+</div>
+<hr>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                {% for pitch in pitches %}
+                <div class="card" style="width: 15rem;margin: 10px;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{pitch.title}}</h5>
+                        <p class="card-text">{{pitch.content}}</p>
+                        <a href="/pitch/{{pitch.id}}" class="btn btn-primary">Explore</a>
+                    </div>
+                </div>
                 {% endfor %}
             </div>
         </div>
     </div>
 </div>
-
 
 {% endblock %}
