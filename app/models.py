@@ -18,7 +18,10 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(30), unique=True, index=True)
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     pass_secure = db.Column(db.String(255))
+    bio = db.Column(db.String(255))
+    profile_pic_path = db.Column(db.String())
     pitches = db.relationship('Pitches', backref='user', lazy="dynamic")
+    comments = db.relationship('Comments', backref='user', lazy="dynamic")
 
     @property
     def password(self):
@@ -67,6 +70,7 @@ class Pitches(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     categories_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
     # category = db.relationship('Categories', backref='user', lazy="dynamic")
+    comments = db.relationship('Comments', backref='pitches', lazy="dynamic")
 
     def __repr__(self):
         return f'User {self.content}'
@@ -90,12 +94,13 @@ class Comments(db.Model):
     pitch_id = db.Column(db.Integer, db.ForeignKey("pitches.id"))
 
     def __repr__(self):
-        return f'User {self.content}'
+        return f'User {self.comment}'
 
     def save_comment(self):
         db.session.add(self)
         db.session.commit()
-    
 
-
-
+    @classmethod
+    def get_comment(cls, id):
+        comments = Comments.query.filter(user_id=id).all()
+        return comments
