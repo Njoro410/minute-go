@@ -28,6 +28,9 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/pitches">Pitches</a>
+                    </li>
                     {% if current_user.is_authenticated %}
                     <li style="color:white;padding:15px;">{{current_user.username}}</li>
                     <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
@@ -38,7 +41,9 @@
             </div>
         </div>
     </nav>
+    <hr>
     {% block content %} {% endblock %}
+
 
 
 
