@@ -15,7 +15,6 @@
 </head>
 
 <body>
-
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">the5thEstate</a>
@@ -32,7 +31,8 @@
                         <a class="nav-link active" aria-current="page" href="/pitches">Pitches</a>
                     </li>
                     {% if current_user.is_authenticated %}
-                    <li style="color:white;padding:15px;">{{current_user.username}}</li>
+                    <li style="color:rgb(0, 0, 0);padding:15px;">{{current_user.username}}</li>
+                    <li><a href="{{url_for('views.profile',uname=current_user.username)}}">Profile</a></li>
                     <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
                     {% else %}
                     <li><a href="{{url_for('auth.login')}}">Sign in</a></li>
@@ -41,7 +41,7 @@
             </div>
         </div>
     </nav>
-    <hr>
+    
     {% block content %} {% endblock %}
 
 
