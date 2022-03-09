@@ -17,8 +17,8 @@ class Config:
 
 class ProdConfig(Config):
     # SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
-    # SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://brian:12345@localhost/minute'
-    SQLALCHEMY_DATABASE_URI = 'postgres://bohfjftkfcvbej:1872b40cc6765ff0155777fe807df5bfabc5f1cbbfae001f6bc356f72962a909@ec2-3-216-221-31.compute-1.amazonaws.com:5432/d6cen4hdu2i6s7'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://brian:12345@localhost/minute'
+    # SQLALCHEMY_DATABASE_URI = 'postgres://bohfjftkfcvbej:1872b40cc6765ff0155777fe807df5bfabc5f1cbbfae001f6bc356f72962a909@ec2-3-216-221-31.compute-1.amazonaws.com:5432/d6cen4hdu2i6s7'
     
     '''
     Production  configuration child class
