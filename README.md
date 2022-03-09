@@ -20,7 +20,7 @@ an  application that allows users to add one minute pitches of any topic.
 
 ## Deployment
 
-This project has been deployed to Heroku
+- [minuteGo](https://minutego.herokuapp.com/)
 
 
 ## Installation
