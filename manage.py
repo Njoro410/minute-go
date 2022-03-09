@@ -1,4 +1,3 @@
-from distutils.log import debug
 from app import create_app,db
 from app.models import User,Role, Pitches, Categories, Comments
 from flask_script import Manager,Server

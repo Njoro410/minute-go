@@ -1,22 +1,32 @@
 {% extends 'base.html'%}
 {% block css %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/pitch.css')}}">
 <link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}">
+<link href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css" rel="stylesheet"
+    type="text/css">
 {% endblock %}
 {% block title %} pitches {% endblock %}
 {% block content %}
 <div class="container" id="p">
     <div class="row">
         <div class="col-sm-12">
+            <p style="text-align: center;">Imagine having One minute to say something, that minute is now and right
+                here, you can only express
+                ypurself in 150 words, as those are the maximum words a person can say in a minute.Pitch today, Pitch
+                now</p>
+            <div class="row">
+                <div class="col-sm-12" id="cta">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Add A Pitch
+                    </button>
+                </div>
+            </div>
 
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Add A Pitch
-            </button>
 
             <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
+            <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Add A Pitch</h5>
@@ -24,7 +34,7 @@
                         </div>
                         <div class="modal-body">
                             <form method="POST">
-                                <select class="form-select" name="catselect" aria-label="categories">
+                                <select class="form-select" name="catselect" aria-label="categories" required>
                                     <option selected>Choose a category</option>
                                     <option value="1">Health</option>
                                     <option value="2">Science</option>
@@ -34,39 +44,56 @@
                                 </select>
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Title</label>
-                                    <input type="text" class="form-control" id="title" name="title">
+                                    <input type="text" class="form-control" id="title" name="title" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="pitch" class="form-label">Pitch</label>
-                                    <textarea class="form-control" id="pitch" name="pitch" rows="3"></textarea>
+                                    <textarea class="form-control" id="pitch" onkeyup="countChar(this)" name="pitch"
+                                        rows="3" required maxlength="150"></textarea>
+                                    <span id="charNum"></span><span>/150</span>
                                 </div>
+
 
                                 <div class="col-auto">
                                     <button type="submit" class="btn btn-primary mb-3">Add Pitch</button>
                                 </div>
-
-
                             </form>
                         </div>
-
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+    <hr>
 </div>
-<hr>
-<div class="container">
+
+<div class="container" id="c">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12" style="margin-left: 100px;">
             <div class="row row-cols-1 row-cols-md-2 g-4">
                 {% for pitch in pitches %}
-                <div class="card" style="width: 15rem;margin: 10px;">
-                    <div class="card-body">
+                <div class="card" style="width: 27rem;margin: 10px;">
+                    <div class="card-header">
                         <h5 class="card-title">{{pitch.title}}</h5>
-                        <p class="card-text">{{pitch.content}}</p>
-                        <a href="/pitch/{{pitch.id}}" class="btn btn-primary">Explore</a>
+                        <span><i class="material-icons" style="float: right;">thumb_down</i></span><span
+                            style="float: right;">{{pitch.dislikes}}</span>
+                        <span><i class="material-icons" style="float: right;">thumb_up</i></span><span
+                            style="float: right;">{{pitch.likes}}</span>
+
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{pitch.content|truncate(50, True, '...')}}</p>
+                        <a href="/pitch/{{pitch.id}}" class="btn btn-primary">Participate</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p>By: {{pitch.user.username}}</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <p>Posted: {{pitch.posted.strftime('%Y-%m-%d')}}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 {% endfor %}
@@ -75,4 +102,10 @@
     </div>
 </div>
 
+
+
+{% endblock %}
+{% block matjs %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="{{url_for('static',filename='js/main.js')}}"></script>
 {% endblock %}

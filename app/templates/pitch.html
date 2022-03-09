@@ -1,17 +1,31 @@
 {% extends 'base.html'%}
-
+{% import "bootstrap/wtf.html" as wtf %}
+{%block matcss %}
+<link href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css" rel="stylesheet"
+    type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+{% endblock %}
 {% block css %}
 <link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}">
+<!-- <link rel="stylesheet" href="{{url_for('static',filename='css/pitch.css')}}"> -->
 {% endblock %}
 {% block title %} {{pitch.title}} {% endblock %}
 {% block content %}
-<div class="container" id="sp">
+<div class="container" style="margin-top: 65px;">
     <div class="row">
         <div class="col-sm-12">
             <h3>{{pitch.title}}</h3>
             <hr>
             <h4>{{pitch.content}}</h4>
             <p>By:{{pitch.user.username}}</p>
+            <p>Posted on:{{pitch.posted.strftime('%Y-%m-%d')}}</p>
+            <p>Category:{{pitch.categories.name}}</p>
+            <span>
+                <a href="/pitch/{{pitch.id}}?like=1"><i class="material-icons"
+                        style="float: left;">thumb_up_alt</i></a>{{pitch.likes}}
+                <a href="/pitch/{{pitch.id}}?dislike=1"><i
+                        class="material-icons">thumb_down_alt</i></a>{{pitch.dislikes}}
+            </span>
         </div>
     </div>
 </div>
@@ -20,18 +34,39 @@
     <hr>
     <div class="row">
         <div class="col-sm-12">
-            <form action="POST">
-                <div class="mb-3">
-                    <label for="comment" class="form-label">Add a comment</label>
-                    <textarea class="form-control" name="comment" id="comment" rows="3"></textarea>
-                </div>
-                <div class="col-auto">
-                    <button type="submit" class="btn btn-primary mb-3">Add</button>
-                </div>
-            </form>
-        
+            {{ wtf.quick_form(comment_form) }}
+
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <hr>
+                {% if comments %}
+                {% for comment in comments %}
+                <ul class="collection">
+                    <li class="collection-item avatar">
+                        {% if user.profile_pic_path %}
+                        <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="profile pic"
+                            class="circle">
+                        {%else%}
+                        <p>N/A</p>
+                        {% endif %}
+                        <span class="title">{{comment.user.username}}</span>
+                        <p>{{comment.comment}}</p>
+                        <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                    </li>
+                </ul>
+                {% endfor %}
+                {% else %}
+                <p>No comments yet</p>
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>
 
+{% endblock %}
+{% block matjs %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 {% endblock %}

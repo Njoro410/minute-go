@@ -1,0 +1,50 @@
+{% extends 'base.html'%}
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/pitch.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}">
+{% endblock %}
+{%block matcss %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+{% endblock %}
+{% block title %} {{category.name}} {% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 80px;">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 style="text-align: center;">{{category.name}}</h2>
+        </div>
+    </div>
+</div>
+<div class="container" style="margin-top: 40px;">
+    <div class="row">
+        <div class="col-sm-12" style="margin-left: 100px;">
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                {% if pitches %}
+                {% for pitch in pitches %}
+                <div class="card" style="width: 27rem;margin: 10px;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{pitch.title}}</h5>
+                        <p class="card-text">{{pitch.content|truncate(100, True, '...')}}</p>
+                        <a href="/pitch/{{pitch.id}}" class="btn btn-primary">Participate</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p>By: {{pitch.user.username}}</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <p>Posted: {{pitch.posted.strftime('%Y-%m-%d')}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <h4>No pitches on this category yet</h4>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

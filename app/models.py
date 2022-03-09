@@ -15,7 +15,7 @@ class User(UserMixin, db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(255))
-    email = db.Column(db.String(30), unique=True, index=True)
+    email = db.Column(db.String(255), unique=True, index=True)
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     pass_secure = db.Column(db.String(255))
     bio = db.Column(db.String(255))
@@ -67,10 +67,12 @@ class Pitches(db.Model):
     title = db.Column(db.String(255))
     content = db.Column(db.String(150))
     posted = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    likes = db.Column(db.Integer)
+    dislikes = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     categories_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
-    # category = db.relationship('Categories', backref='user', lazy="dynamic")
     comments = db.relationship('Comments', backref='pitches', lazy="dynamic")
+
 
     def __repr__(self):
         return f'User {self.content}'
@@ -89,7 +91,7 @@ class Comments(db.Model):
     __tablename__ = 'comments'
 
     id = db.Column(db.Integer, primary_key=True)
-    comment = db.Column(db.String(30))
+    comment = db.Column(db.String(255))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     pitch_id = db.Column(db.Integer, db.ForeignKey("pitches.id"))
 
@@ -101,6 +103,6 @@ class Comments(db.Model):
         db.session.commit()
 
     @classmethod
-    def get_comment(cls, id):
-        comments = Comments.query.filter(user_id=id).all()
+    def get_comments(cls, id):
+        comments = Comments.query.filter_by(pitch_id=id).all()
         return comments

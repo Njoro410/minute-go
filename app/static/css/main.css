@@ -1,8 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@1,700&display=swap');
+
+body,
+html {
+    overflow-x: hidden;
+    font-family: 'Josefin Sans', sans-serif;
+    /* background-color: #ae2012; */
+}
+
+.navbar {
+    -webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0 8px 6px -6px #999;
+    padding-right: 50px;
+    padding-left: 50px;
+}
+
+.navbar-brand,
+.navbar-nav {
+    margin-left: 10px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 900;
+}
+
 #p {
     margin-top: 80px;
 }
+#cta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .btn {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#min {
+    color: #ee9b00;
+}
+
+#go {
+    color: #ae2012;
+}
+
+/* #home {
+    height: 10em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+} */
+
+.home1 {
+    margin-top: 100px;
+    text-align: center;
+}
+
+.home {
+    text-align: center;
+}
+
+#button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.about {
+    text-align: center;
+}
+.btn {
+    background-color: #ee9b00;
+
+    color: white;
+
+}
+.btn:hover {
+    background-color: #ae2012;
+    color: white;
+    
+}
+.card {
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.2);
+    background: white;
+    border-radius: 1.5px;
+}
+
+.card-footer, .card-header {
+    background: white;
+}
+
+.card-text {
+    text-align: center;
+}
+#profile_pic {
+    width: 50%;
+}
+#usp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#likes {
+    float: left;
+}
+
+
+#now {
+    border: none;
+    display: block;
+    position: relative;
+    padding: 0.7em 2.4em;
+    font-size: 18px;
+    background: transparent;
+    cursor: pointer;
+    user-select: none;
+    overflow: hidden;
+    color: #ae2012;
+    z-index: 1;
+    font-family: inherit;
+    font-weight: 500;
+}
+
+#now span {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: -1;
+    border: 4px solid #ee9b00;
+}
+
+#now span::before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 8%;
+    height: 500%;
+    background: var(--lightgray);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-60deg);
+    transition: all 0.3s;
+}
+
+#now:hover span::before {
+    transform: translate(-50%, -50%) rotate(-90deg);
+    width: 100%;
+    background: #ee9b00;
+}
+
+#now:hover {
+    color: white;
+}
+
+#now:active span::before {
+    background: #ae2012;
 }
