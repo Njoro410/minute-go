@@ -1,4 +1,3 @@
-from crypt import methods
 from nis import cat
 from unicodedata import category
 from flask import Blueprint, render_template, abort, request, redirect, url_for
